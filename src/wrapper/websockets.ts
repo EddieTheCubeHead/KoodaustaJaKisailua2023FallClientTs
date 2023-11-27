@@ -10,13 +10,12 @@ import {
     StartGameData,
     WsEvent
 } from "./models";
-import {teamAiLogProvider, wrapperLogProvider} from "../logging";
+import {loggerProvider} from "../logging";
 import {deserializeWebhookEvent} from "./serialization";
 import {handleTick} from "../team_ai";
-import {expect} from "@jest/globals";
 
-const _logger = wrapperLogProvider.getLogger("wrapper.websockets")
-const _team_ai_logger = teamAiLogProvider.getLogger("team_ai.timer")
+const _logger = loggerProvider.getLogger("wrapper.websockets")
+const _team_ai_logger = loggerProvider.getLogger("team_ai.timer")
 const _client: Client = {state: ClientState.unconnected, context: null};
 
 const sendWebSocketMessage = (websocket: WebSocket, event: WsEvent) => {
@@ -25,9 +24,7 @@ const sendWebSocketMessage = (websocket: WebSocket, event: WsEvent) => {
     websocket.send(eventString)
 }
 
-const authOnConnect = (websocket: WebSocket) => {
-    const token = "myToken"
-    const botName = "myName"
+const authOnConnect = (websocket: WebSocket, token: string, botName: string) => {
     _logger.info(`Authorizing with token ${token} and name ${botName}`)
     _client.state = ClientState.unauthorized
     sendWebSocketMessage(websocket, {eventType: EventType.auth, data: {token, botName}})
@@ -126,11 +123,11 @@ const handleEvent = async (websocket: WebSocket, message: string) => {
     }
 };
 
-export const runWebsocket = (token: string, name: string) => {
-    const ws = new WebSocket("ws://localhost:8765");
+export const runWebsocket = (address: string, token: string, name: string) => {
+    const ws = new WebSocket(address);
 
     ws.on('open', () => {
-        authOnConnect(ws)
+        authOnConnect(ws, token, name)
     })
 
     ws.on('message', (message: string) => {

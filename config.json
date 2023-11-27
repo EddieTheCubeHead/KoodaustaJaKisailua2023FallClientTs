@@ -1,0 +1,7 @@
+{
+  "websocketUrl": "ws://localhost:8080/socket",
+  "token": "myBotToken",
+  "botName": "main",
+  "wrapperLogLevel": "Debug",
+  "teamAiLogLevel": "Debug"
+}

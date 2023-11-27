@@ -1,18 +1,15 @@
 import {Log4TSProvider} from "typescript-logging-log4ts-style";
-import {LogLevel} from "typescript-logging";
+import {config} from "./config_provider";
 
-export const teamAiLogProvider = Log4TSProvider.createProvider("TeamAiLogProvider",
+export const loggerProvider = Log4TSProvider.createProvider("TeamAiLogProvider",
     {
-        level: LogLevel.Debug,
         groups: [{
-            expression: new RegExp("teamAi.*")
-        }]
-    })
-
-export const wrapperLogProvider = Log4TSProvider.createProvider("wrapperLogProvider",
-    {
-        level: LogLevel.Debug,
-        groups: [{
-            expression: new RegExp("wrapper.*")
+            expression: new RegExp("team_ai.*"),
+            // @ts-ignore
+            level: config.teamAiLogLevel
+        }, {
+            expression: new RegExp("wrapper.*"),
+            // @ts-ignore
+            level: config.wrapperLogLevel
         }]
     })

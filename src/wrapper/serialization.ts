@@ -1,7 +1,7 @@
 import {WsEventSchema} from "./models";
-import {wrapperLogProvider} from "../logging";
+import {loggerProvider} from "../logging";
 
-const _logger = wrapperLogProvider.getLogger("wrapper.deserialization")
+const _logger = loggerProvider.getLogger("wrapper.deserialization")
 
 export const deserializeWebhookEvent = (jsonString: string) => {
     const parseResult = WsEventSchema.safeParse(

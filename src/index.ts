@@ -1,3 +1,4 @@
 import {runWebsocket} from "./wrapper/websockets";
+import {config} from "./config_provider";
 
-runWebsocket("myBotToken", "myBotName")
+runWebsocket(config.websocketUrl, config.token, config.botName)
