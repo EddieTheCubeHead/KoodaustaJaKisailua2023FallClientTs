@@ -85,8 +85,7 @@ export const HitBoxCellSchema = z.object({
 
 export const GridPositionSchema = z.object({
     x: z.number(),
-    y: z.number(),
-    rotation: z.number()
+    y: z.number()
 });
 
 export const ShipCellDataSchema = z.object({
