@@ -136,6 +136,7 @@ export type GridPosition = z.infer<typeof GridPositionSchema>;
 export type ProjectileCellData = z.infer<typeof ProjectileCellDataSchema>;
 export type ProjectileCell = z.infer<typeof ProjectileCellSchema>;
 export type GameMapCell = z.infer<typeof GameMapCellSchema>;
+export type HitBoxCell = z.infer<typeof HitBoxCellSchema>;
 
 const MoveActionPayloadSchema = z.object({
     distance: z.number(),
