@@ -77,7 +77,7 @@ test("Should set projectile data on projectile deserialization", () => {
     const eventJson =
         "{\"eventType\": \"gameTick\", \"data\": {\"turnNumber\": 1, \"gameMap\": " +
         "[[{\"type\": \"projectile\", \"data\": {\"id\": \"projectileId\", \"position\": {\"x\": 5, \"y\": 3}, " +
-        "\"direction\": \"sw\", \"velocity\": 4, \"mass\": 2}}]]}}"
+        "\"direction\": \"sw\", \"speed\": 4, \"mass\": 2}}]]}}"
 
     const deserializedEvent = deserializeWebhookEvent(eventJson)
 
@@ -90,7 +90,7 @@ test("Should set projectile data on projectile deserialization", () => {
     expect(eventData.gameMap[0][0].data.id).toBe("projectileId")
     expect(eventData.gameMap[0][0].data.position).toEqual({x: 5, y: 3})
     expect(eventData.gameMap[0][0].data.direction).toBe(CompassDirection.southWest)
-    expect(eventData.gameMap[0][0].data.velocity).toBe(4)
+    expect(eventData.gameMap[0][0].data.speed).toBe(4)
     expect(eventData.gameMap[0][0].data.mass).toBe(2)
 })
 

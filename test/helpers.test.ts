@@ -60,7 +60,7 @@ describe("getEntityCoordinates test cases", () => {
         const empty: EmptyCell = {type: CellType.empty, data: {}}
         const entity: ProjectileCell = {
             type: CellType.projectile,
-            data: {id: "entity", position: {x: 1, y: 1}, direction: CompassDirection.northEast, velocity: 3, mass: 4}
+            data: {id: "entity", position: {x: 1, y: 1}, direction: CompassDirection.northEast, speed: 3, mass: 4}
         }
         const gameMap = [
             [empty, empty, empty, empty],
@@ -77,7 +77,7 @@ describe("getEntityCoordinates test cases", () => {
         const hitBox: HitBoxCell = {type: CellType.hitBox, data: {entityId: "entity"}}
         const entity: ProjectileCell = {
             type: CellType.projectile,
-            data: {id: "entity", position: {x: 3, y: 3}, direction: CompassDirection.northEast, velocity: 3, mass: 4}
+            data: {id: "entity", position: {x: 3, y: 3}, direction: CompassDirection.northEast, speed: 3, mass: 4}
         }
         const gameMap = [
             [empty, empty, empty, empty, empty],

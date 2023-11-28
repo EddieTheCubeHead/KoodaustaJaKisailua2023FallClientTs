@@ -105,7 +105,7 @@ export const ProjectileCellDataSchema = z.object({
     id: z.string(),
     position: GridPositionSchema,
     direction: DirectionSchema,
-    velocity: z.number(),
+    speed: z.number(),
     mass: z.number(),
 });
 
