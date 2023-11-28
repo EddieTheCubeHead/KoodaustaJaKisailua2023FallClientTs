@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
 import {
     ActionType,
-    BotAction,
+    Command,
     Client,
     ClientContext,
     ClientState,
@@ -53,7 +53,7 @@ const tickProcessingWrapper = async (context: ClientContext | null, event: GameT
         return null
     }
 
-    let result: BotAction | null
+    let result: Command | null
     try {
         const start = Date.now()
         result = await handleTick(context, event)
@@ -66,16 +66,28 @@ const tickProcessingWrapper = async (context: ClientContext | null, event: GameT
     return result
 }
 
-const handleTickProcessingTimeout = async (event: GameTickData): Promise<BotAction | null> => {
+const handleTickProcessingTimeout = async (event: GameTickData): Promise<Command | null> => {
+    if (_client.context === null)
+    {
+        _logger.error("Client context was null while trying to process a tick.")
+        return null;
+    }
+
+    const tickLength = _client.context.tickLengthMs
+
+    if (tickLength === 0) {
+        return await tickProcessingWrapper(_client.context, event)
+    }
+
     const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => {
             reject(new Error(`Team ai function timed out after ${_client.context?.tickLengthMs} milliseconds.`))
-        }, _client.context?.tickLengthMs);
+        }, tickLength - 50);
     })
 
     try {
         let result = await Promise.race([tickProcessingWrapper(_client.context, event), timeoutPromise]);
-        return result as BotAction | null
+        return result as Command | null
     } catch (exception) {
         _logger.error(`${exception}`)
         return null
@@ -87,7 +99,7 @@ const handleGameTick = async (websocket: WebSocket, event: GameTickData) => {
         _logger.warn(`Game ticks can only be handled while in in-game state! State right now is: ${_client.state}`)
         return;
     }
-    const action: BotAction = await handleTickProcessingTimeout(event) ?? {action: ActionType.move, payload: {distance: 0}}
+    const action: Command = await handleTickProcessingTimeout(event) ?? {action: ActionType.move, payload: {distance: 0}}
     sendWebSocketMessage(websocket, {eventType: EventType.gameAction, data: action})
 }
 

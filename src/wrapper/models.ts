@@ -166,12 +166,12 @@ export const ShootActionSchema = z.object({
     payload: ShootActionPayloadSchema,
 });
 
-export const BotActionSchema = z.union([
+export const CommandSchema = z.union([
     MoveActionSchema,
     TurnActionSchema,
     ShootActionSchema,
 ]);
-export type BotAction = z.infer<typeof BotActionSchema>;
+export type Command = z.infer<typeof CommandSchema>;
 
 export const AuthDataSchema = z.object({
     token: z.string(),
@@ -205,7 +205,7 @@ export type StartAckEvent = z.infer<typeof StartAckEventSchema>;
 
 export const GameActionEventSchema = z.object({
     eventType: z.literal(EventType.gameAction),
-    data: BotActionSchema,
+    data: CommandSchema,
 });
 export type GameActionEvent = z.infer<typeof GameActionEventSchema>;
 
