@@ -136,7 +136,9 @@ const handleEvent = async (websocket: WebSocket, message: string) => {
 };
 
 export const runWebsocket = (address: string, token: string, name: string) => {
-    const ws = new WebSocket(address);
+    const parametrizedAddress = `${address}?$token=${token}&botName=${name}`
+    _logger.info(`Connecting to websocket at ${parametrizedAddress}`)
+    const ws = new WebSocket(parametrizedAddress);
 
     ws.on('open', () => {
         authOnConnect(ws, token, name)
