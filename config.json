@@ -1,5 +1,5 @@
 {
-  "websocketUrl": "ws://localhost:8080/socket",
+  "websocketUrl": "wss://captsolar.mustachecorp.com:8081/api/socket",
   "token": "myBotToken",
   "botName": "main",
   "wrapperLogLevel": "Debug",

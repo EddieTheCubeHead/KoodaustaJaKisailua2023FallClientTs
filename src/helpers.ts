@@ -67,7 +67,7 @@ const directionByIndex = [
 
 export const getPartialTurn = (startingDirection: CompassDirection, targetDirection: CompassDirection, turnRate: number) => {
     let initialTurn = directionMappings[targetDirection] - directionMappings[startingDirection]
-    let afterTurnDirection
+    let afterTurnDirection: number
     if (initialTurn > 4) {  // Turning counterclockwise
         initialTurn -= 8
         afterTurnDirection = directionMappings[startingDirection] + Math.max(initialTurn, -turnRate)
