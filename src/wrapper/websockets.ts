@@ -136,7 +136,7 @@ const handleEvent = async (websocket: WebSocket, message: string) => {
 };
 
 export const runWebsocket = (address: string, token: string, name: string) => {
-    const parametrizedAddress = `${address}?$token=${token}&botName=${name}`
+    const parametrizedAddress = `${address}?token=${token}&botName=${name}`
     _logger.info(`Connecting to websocket at ${parametrizedAddress}`)
     const ws = new WebSocket(parametrizedAddress);
 
